@@ -64,7 +64,6 @@ statsmodels==0.12.1
 streamlit==0.69.2
 terminado==0.9.1
 testpath==0.4.4
-toml==0.10.1
 traitlets==5.0.5
 tzlocal==2.1
 urllib3==1.25.11
