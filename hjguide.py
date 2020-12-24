@@ -13,7 +13,7 @@ import re
 
 @st.cache
 def load_data():
-    df = pd.read_pickle('hj_analysis.pkl')
+    df = pd.read_excel('df_analysis_final_m.xlsx')
     return df
 
 
