@@ -31,9 +31,7 @@ df = load_data()
 st.sidebar.title('성별, 장애, 연령, 증상 선택')
 select_sex=st.sidebar.selectbox('성별 선택',df_sex)
 select_disable=st.sidebar.selectbox("장애여부 선택",("전체(구분없음)","정상","장애"))
-age_gorup=st.sidebar.radio("연령대 선택",("전체","영유아기","청소년기","성인","노인"))
-
-
+age_gorup=st.sidebar.selectbox("연령대 선택",("전체","영유아기","청소년기","성인","노인"))
 select_ph=st.sidebar.multiselect("증상 선택(다중선택 가능)",("우울","스트레스","창의성","표현","불안","분노조절","자아존중감","공격성","중독","자아존중"))
 input_pi=st.sidebar.text_input("추가 조건(주부, 군인 등)", "")
 
@@ -96,21 +94,26 @@ df_select=df_select_temp.drop_duplicates()
 
 st.write("사례수",df_select.shape[0])
 #st.dataframe(df_select)
-
+del df_select_temp
 
 btn = st.sidebar.button("선택하기")
 if btn:
     left_column_3, right_column_4 = st.beta_columns(2)
     if len(df_select[df_select['지표구분'] == '긍정']) > 0:
         df_select_melt=pd.melt(df_select[['Unnamed: 0','제목','처음측정방법','초기측정결과', '나중 측정 결과']][df_select['지표구분'] == '긍정'], id_vars=['Unnamed: 0','제목','처음측정방법'], value_vars=['초기측정결과', '나중 측정 결과'])
-        fig_3 = px.bar(df_select_melt, x="variable", y="value", color='처음측정방법')
+        fig_3 = px.bar(df_select_melt, x="variable", y="value", color='처음측정방법',
+                       hover_data= {'Unnamed: 0':False, '제목':False, '처음측정방법':True,
+                                    'variable':False, 'value':False}
+                       )
         with left_column_3:
             st.header("긍정지표변화")
             st.plotly_chart(fig_3)
 
     if len(df_select[df_select['지표구분'] == '부정']) > 0:
         df_select_melt=pd.melt(df_select[['Unnamed: 0','제목','처음측정방법','초기측정결과', '나중 측정 결과']][df_select['지표구분'] == '부정'], id_vars=['Unnamed: 0','제목','처음측정방법'], value_vars=['초기측정결과', '나중 측정 결과'])
-        fig_4 = px.bar(df_select_melt, x="variable", y="value", color='처음측정방법')
+        fig_4 = px.bar(df_select_melt, x="variable", y="value", color='처음측정방법',
+                       hover_data= {'Unnamed: 0':False, '제목':False, '처음측정방법':True,
+                                    'variable':False, 'value':False})
         with right_column_4:
             st.header("부정지표변화")
             st.plotly_chart(fig_4)
