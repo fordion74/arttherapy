@@ -36,8 +36,8 @@ select_ph=st.sidebar.multiselect("증상 선택(다중선택 가능)",("우울",
 input_pi=st.sidebar.text_input("추가 조건(주부, 군인 등)", "")
 
 
-st.title("허그하트 심리치료 가이드")
-st.title("(Healing Art Therapy  Clinic Guide)")
+st.title("허그하트클리닉 심리치료 가이드")
+st.title("(Hugheart Clinic Guide)")
 st.title(" ")
 
 
